@@ -1,0 +1,101 @@
+html, body {
+  margin: 0;
+  min-height: 100vh; 
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  background: #fafafa;
+  color: #111;
+}
+
+/* HEADER: Si solo quieres alinear a la izquierda, no necesitas flex */
+.header {
+  padding: 1rem;
+  background: #111827;
+  color: #fff;
+}
+
+.header-title-container {
+  /* Si quieres mantener flex para futuras expansiones: */
+  display: flex;
+  justify-content: flex-start; /* ✅ Correcto para alinear a la izquierda */
+  align-items: center; /* Añadido: centra verticalmente */
+  margin: 0; 
+  font-size: 1.15rem; 
+}
+
+/* MAIN: Para centrar contenido verticalmente necesitas altura completa */
+.main {
+  padding: 1rem;
+  display: flex;
+  justify-content: start; /* ✅ Centra horizontalmente */
+  align-items: center; /* ✅ Centra verticalmente */
+  flex-direction: column; /* ✅ Correcto */
+  min-height: calc(100vh - 120px); /* Añadido: resta padding del header/footer */
+}
+
+/* MAIN TITLE: Redundante con .main, pero si necesitas contenedor separado: */
+.main-title-container {
+  display: flex;
+  align-items: center; /* ✅ Centra verticalmente */
+  flex-direction: column; /* ✅ Correcto para apilar elementos */
+  justify-content: center; /* ✅ Centra horizontalmente */
+  text-align: center; /* Añadido: centra el texto */
+  margin-bottom: 2rem; /* Añadido: espacio con el formulario */
+}
+
+/* FORM: Depende de lo que quieras lograr */
+.products-form {
+  display: flex;
+  flex-direction: column; /* ✅ Elementos en línea horizontal */
+  align-items: center; /* ✅ Centra verticalmente */
+  justify-content: center; /* Añadido: centra horizontalmente */
+  gap: 1rem; /* Añadido: espacio entre elementos del formulario */
+  flex-wrap: wrap; /* Añadido: permite que se envuelvan en pantallas pequeñas */
+}
+
+.products-form-row {
+  display: flex;
+  flex-direction: column; /* Cambiado a columna para etiquetas y inputs */
+  align-items: flex-start; /* Alinea etiquetas a la izquierda */
+  gap: 0.25rem; /* Espacio entre etiqueta e input */
+}
+
+.products-form-submit-button{
+  padding: 0.5rem 1rem;
+  background-color: #111827;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 10px;
+}
+
+/* FOOTER: Correcto para centrar */
+.footer {
+  display: flex;
+  justify-content: center; /* ✅ Centra horizontalmente */
+  align-items: center; /* Añadido: centra verticalmente */
+  padding: 1rem;
+  margin-top: auto; /* Añadido: empuja el footer hacia abajo */
+}
+
+/* ALTERNATIVAS SEGÚN TU INTENCIÓN: */
+
+/* Si .form-container debe ser vertical (formulario típico): */
+.form-container-vertical {
+  display: flex;
+  flex-direction: column; /* Cambiado a column */
+  align-items: stretch; /* Los inputs ocupan todo el ancho */
+  gap: 1rem;
+  width: 100%;
+  max-width: 400px; /* Limita el ancho máximo */
+}
+
+/* Si .form-container debe tener elementos en línea pero centrados: */
+.form-container-inline {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  flex-wrap: wrap; /* Se adapta a pantallas pequeñas */
+}
