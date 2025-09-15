@@ -67,3 +67,14 @@ export default tseslint.config([
   },
 ])
 ```
+
+## Environment
+1) Copy `.env.example` to `.env`
+2) Put your Google Apps Script Web App URL in `VITE_SHEETS_API_BASE`
+3) Run: `npm i && npm run dev`
+
+## Notes
+- The backend must be deployed as Web App with:
+  - Execute as: Me
+  - Who has access: Anyone
+- CORS enabled in Apps Script (ok/err must return with Access-Control-Allow-* headers).
