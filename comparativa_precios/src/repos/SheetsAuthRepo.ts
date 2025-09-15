@@ -1,15 +1,27 @@
-// repos/SheetsAuthRepo.ts
-import type { Session } from '../types/Auth';
-const BASE = 'https://script.google.com/macros/s/AKfycbwUzVoFQi7rIvjgOxtzADh7NJig-KdeCabfcer4qXM7ImCrBdBc6Pjq-Dyb6jFNvSU/exec';
-
+import { ENV } from "@/env";
+import type { Session } from "@/types/Auth";
 
 export class SheetsAuthRepo {
-async register(email: string, password: string){
-const r = await fetch(`${BASE}?path=auth/register`, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({email,password}) });
-const j = await r.json(); if(!j.ok) throw new Error(j.error); return j.data;
-}
-async login(email: string, password: string): Promise<Session>{
-const r = await fetch(`${BASE}?path=auth/login`, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({email,password}) });
-const j = await r.json(); if(!j.ok) throw new Error(j.error); return j.data;
-}
+  private base = ENV.API_BASE;
+
+  private async jsonFetch<T>(url: string, init?: RequestInit): Promise<T> {
+    const r = await fetch(url, { ...init, headers: { "Content-Type": "application/json", ...(init?.headers || {}) }});
+    const j = await r.json();
+    if (!j.ok) throw new Error(j.error || "Request failed");
+    return j.data as T;
+  }
+
+  register(email: string, password: string) {
+    return this.jsonFetch<Pick<Session, "user_id"|"email">>(`${this.base}?path=auth/register`, {
+      method: "POST",
+      body: JSON.stringify({ email, password }),
+    });
+  }
+
+  login(email: string, password: string) {
+    return this.jsonFetch<Session>(`${this.base}?path=auth/login`, {
+      method: "POST",
+      body: JSON.stringify({ email, password }),
+    });
+  }
 }
